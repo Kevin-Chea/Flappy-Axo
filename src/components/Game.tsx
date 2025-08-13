@@ -18,7 +18,7 @@ const Game = () => {
   const { birdY, addVelocity, computeBirdY, drawBird } = useBird();
   const { frameExecution, objectCollideWithPipe, getFirstPipe, drawPipes } =
     usePipes();
-  const { stop } = useGame();
+  const { stop, updateDelta, delta } = useGame();
   const { setScore } = useScore();
 
   useEffect(() => {
@@ -26,17 +26,19 @@ const Game = () => {
     if (!ctx) return;
 
     let animationFrame: number;
+    console.log("call");
 
     const gameLoop = () => {
       // Reset canvas
       clearAll();
 
       // Apply forces on bird
-      addVelocity(GRAVITY);
+      console.log(delta.current);
+      addVelocity(GRAVITY * delta.current);
       computeBirdY();
 
       // Pipe logic (creation, deletion...)
-      frameExecution(animationFrame);
+      frameExecution();
 
       const pipe = getFirstPipe();
       if (
@@ -58,6 +60,7 @@ const Game = () => {
       drawBird(ctx);
       drawPipes(ctx);
 
+      updateDelta();
       animationFrame = requestAnimationFrame(gameLoop);
     };
     animationFrame = requestAnimationFrame(gameLoop);

@@ -2,12 +2,13 @@ import { useRef } from "react";
 import {
   CANVAS_HEIGHT,
   CANVAS_WIDTH,
-  FRAMES_BETWEEN_PIPES,
+  DELAY_BETWEEN_PIPES,
   PIPE_SPEED,
   PIPE_WIDTH,
   PIPES_GAP,
 } from "../Properties";
 import { useScore } from "./useScore";
+import useGame from "./useGame";
 
 interface Pipe {
   positionX: number;
@@ -17,6 +18,8 @@ interface Pipe {
 const usePipes = () => {
   const pipes = useRef<Pipe[]>([]);
   const { incrementScore } = useScore();
+  const { delta } = useGame();
+  const timeOfLastPipeSpawn = useRef(0);
 
   const addPipe = () => {
     const newPipe: Pipe = {
@@ -42,7 +45,9 @@ const usePipes = () => {
   };
 
   const movePipes = () => {
-    pipes.current.forEach((pipe) => (pipe.positionX += PIPE_SPEED));
+    pipes.current.forEach(
+      (pipe) => (pipe.positionX += PIPE_SPEED * delta.current * 100)
+    );
   };
 
   const handlePipeDeletion = () => {
@@ -55,10 +60,11 @@ const usePipes = () => {
     if (pipes.current.length !== nbPipes) incrementScore();
   };
 
-  const frameExecution = (frameNumber: number) => {
+  const frameExecution = () => {
     // Recreate a pipe if necessary
-    if (frameNumber % FRAMES_BETWEEN_PIPES === 0) {
+    if (performance.now() - timeOfLastPipeSpawn.current > DELAY_BETWEEN_PIPES) {
       addPipe();
+      timeOfLastPipeSpawn.current = performance.now();
     }
 
     // Delete pipe if it has left the screen
