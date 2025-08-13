@@ -17,13 +17,10 @@ export const GameProvider: React.FC<{ children: React.ReactNode }> = ({
 
   const updateDelta = () => {
     const newTime = performance.now();
-    console.log(newTime);
-    console.log(lastTime.current);
     delta.current = (newTime - lastTime.current) * 0.001; // convert from ms to s
-    console.log(delta);
-    //delta.current = newTime - lastTime.current; // convert from ms to ms
     lastTime.current = newTime;
   };
+
   return (
     <GameContext.Provider
       value={{

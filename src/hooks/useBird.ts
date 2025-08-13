@@ -48,7 +48,7 @@ const useBird = () => {
 
   const computeBirdY = () => {
     console.log(birdVelocity.current * delta.current);
-    birdY.current += birdVelocity.current * delta.current * 100;
+    birdY.current += birdVelocity.current * delta.current;
     // Clamp value
     if (birdY.current < 0) birdY.current = 0;
     if (birdY.current + BIRD_HEIGHT > CANVAS_HEIGHT)

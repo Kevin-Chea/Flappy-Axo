@@ -26,14 +26,12 @@ const Game = () => {
     if (!ctx) return;
 
     let animationFrame: number;
-    console.log("call");
 
     const gameLoop = () => {
       // Reset canvas
       clearAll();
 
       // Apply forces on bird
-      console.log(delta.current);
       addVelocity(GRAVITY * delta.current);
       computeBirdY();
 
