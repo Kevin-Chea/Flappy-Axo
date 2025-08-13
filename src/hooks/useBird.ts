@@ -5,8 +5,10 @@ import {
   BIRD_WIDTH,
   CANVAS_HEIGHT,
   CLICK_FORCE,
+  GRAVITY,
   MAX_VELOCITY,
 } from "../Properties";
+import { computeClampedValue } from "../utils/clamp";
 
 const useBird = () => {
   const birdY = useRef(0);
@@ -15,13 +17,24 @@ const useBird = () => {
   const addVelocity = (velocity: number) => {
     birdVelocity.current += velocity;
 
-    if (birdVelocity.current > MAX_VELOCITY) {
-      birdVelocity.current = MAX_VELOCITY;
+    // If we are hitting a border and velocity would make us leave, decrease it
+    if (velocity > 0 && birdY.current + BIRD_HEIGHT == CANVAS_HEIGHT) {
+      if (birdVelocity.current > 0) {
+        birdVelocity.current -= 2 * GRAVITY;
+      }
     }
-
-    if (birdVelocity.current < -MAX_VELOCITY) {
-      birdVelocity.current = -MAX_VELOCITY;
+    if (velocity < 0 && birdY.current == 0) {
+      if (birdVelocity.current < 0) {
+        birdVelocity.current += 2 * GRAVITY;
+      }
     }
+    // Clamp value
+    birdVelocity.current = computeClampedValue(
+      birdVelocity.current,
+      -MAX_VELOCITY,
+      MAX_VELOCITY
+    );
+    console.log(birdVelocity.current);
   };
 
   const resetVelocity = () => {
