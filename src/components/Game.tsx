@@ -14,7 +14,8 @@ import useGame from "../hooks/useGame";
 import { useScore } from "../hooks/useScore";
 
 const Game = () => {
-  const { canvasRef, canvasContextRef, clearAll } = useGameCanvas();
+  const { canvasRef, canvasContextRef, clearAll, drawBackground } =
+    useGameCanvas();
   const { birdY, addVelocity, computeBirdY, drawBird } = useBird();
   const { frameExecution, objectCollideWithPipe, getFirstPipe, drawPipes } =
     usePipes();
@@ -30,6 +31,7 @@ const Game = () => {
     const gameLoop = () => {
       // Reset canvas
       clearAll();
+      drawBackground();
 
       // Apply forces on bird
       addVelocity(GRAVITY * delta.current);

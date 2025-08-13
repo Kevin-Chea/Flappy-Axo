@@ -4,6 +4,7 @@ import { CANVAS_HEIGHT, CANVAS_WIDTH } from "../Properties";
 const useGameCanvas = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const canvasContextRef = useRef<CanvasRenderingContext2D>(null);
+  const backgroundImg = useRef<HTMLImageElement>(new Image());
 
   const clearAll = useCallback(() => {
     const ctx = canvasRef.current?.getContext("2d");
@@ -15,9 +16,43 @@ const useGameCanvas = () => {
     if (canvasRef.current) {
       canvasContextRef.current = canvasRef.current?.getContext("2d");
     }
+
+    backgroundImg.current.src = "/src/assets/background.jpg";
   }, []);
 
-  return { canvasRef, canvasContextRef, clearAll };
+  const drawBackground = () => {
+    const img = backgroundImg.current;
+    const canvasRatio = CANVAS_WIDTH / CANVAS_HEIGHT;
+    const imgRatio = img.width / img.height;
+
+    let drawWidth = CANVAS_WIDTH;
+    let drawHeight = CANVAS_HEIGHT;
+
+    let offsetX = 0;
+    let offsetY = 0;
+
+    if (imgRatio > canvasRatio) {
+      // Wider image: crop width
+      drawHeight = CANVAS_HEIGHT;
+      drawWidth = imgRatio * drawHeight;
+      offsetX = (CANVAS_WIDTH - drawWidth) / 2;
+    } else {
+      // Heigher image: crop top/bottom
+      drawWidth = CANVAS_WIDTH;
+      drawHeight = drawWidth / imgRatio;
+      offsetY = (CANVAS_HEIGHT - drawHeight) / 2;
+    }
+
+    canvasContextRef.current?.drawImage(
+      img,
+      offsetX,
+      offsetY,
+      drawWidth,
+      drawHeight
+    );
+  };
+
+  return { canvasRef, canvasContextRef, clearAll, drawBackground };
 };
 
 export default useGameCanvas;
