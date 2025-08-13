@@ -1,5 +1,9 @@
 .menu {
-    width: 500px;
+    width: 1000px;
     height: 500px;
     justify-content: center;
+    border-radius: 8px;
+    border: 2px solid #333;
+    place-items: center;
+    display: flex;
 }

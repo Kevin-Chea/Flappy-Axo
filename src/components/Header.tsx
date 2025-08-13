@@ -1,8 +1,14 @@
 import { useScore } from "../hooks/useScore";
+import "./Header.css";
 
 const Header = () => {
-  const { score } = useScore();
-  return <div>{score}</div>;
+  const { score, bestScore } = useScore();
+  return (
+    <div className="header">
+      <span>Current score : {score}</span>
+      <span>Best score : {bestScore}</span>
+    </div>
+  );
 };
 
 export default Header;

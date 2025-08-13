@@ -1,0 +1,7 @@
+.header {
+    min-height: 100px;
+    display: flex;
+    place-items: center;
+    justify-content: center;
+    gap: 10em;
+}

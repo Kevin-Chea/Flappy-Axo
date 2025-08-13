@@ -1,14 +1,19 @@
 import { useRef, useState } from "react";
 import { GameContext } from "../context/GameContext";
+import { useScore } from "../hooks/useScore";
 
 export const GameProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   const [isPlaying, setIsPlaying] = useState(false);
+
+  const { setBestScoreIfNecessary } = useScore();
+
   const start = () => {
     setIsPlaying(true);
   };
   const stop = () => {
+    setBestScoreIfNecessary();
     setIsPlaying(false);
   };
 

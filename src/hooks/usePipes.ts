@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import {
   CANVAS_HEIGHT,
   CANVAS_WIDTH,
@@ -18,8 +18,12 @@ interface Pipe {
 const usePipes = () => {
   const pipes = useRef<Pipe[]>([]);
   const { incrementScore } = useScore();
-  const { delta } = useGame();
+  const { delta, isPlaying } = useGame();
   const timeOfLastPipeSpawn = useRef(0);
+
+  const resetPipes = () => {
+    pipes.current = [];
+  };
 
   const addPipe = () => {
     const newPipe: Pipe = {
@@ -90,6 +94,12 @@ const usePipes = () => {
       );
     });
   };
+
+  useEffect(() => {
+    if (isPlaying) {
+      resetPipes();
+    }
+  }, [isPlaying]);
 
   return {
     pipes,

@@ -5,6 +5,8 @@ interface ScoreContextType {
   setScore: React.Dispatch<React.SetStateAction<number>>;
   incrementScore: (points?: number) => void;
   resetScore: () => void;
+  bestScore: number;
+  setBestScoreIfNecessary: () => void;
 }
 
 export const ScoreContext = createContext<ScoreContextType | undefined>(
