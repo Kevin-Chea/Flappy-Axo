@@ -10,11 +10,13 @@ import {
 } from "../Properties";
 import { computeClampedValue } from "../utils/clamp";
 import useGame from "./useGame";
+import { computeDrawDimensionsAndOffsets } from "../utils/image";
 
 const useBird = () => {
   const birdY = useRef(0);
   const birdVelocity = useRef(0);
   const { delta } = useGame();
+  const axoImg = useRef<HTMLImageElement>(new Image());
 
   const addVelocity = useCallback(
     (velocity: number) => {
@@ -56,8 +58,25 @@ const useBird = () => {
   };
 
   const drawBird = (ctx: CanvasRenderingContext2D) => {
-    ctx.fillStyle = "blue ";
-    ctx.fillRect(BIRD_OFFSET_X, birdY.current, BIRD_WIDTH, BIRD_HEIGHT);
+    const img = axoImg.current;
+    const dimensionsAndOffsets = computeDrawDimensionsAndOffsets(
+      img,
+      BIRD_WIDTH,
+      BIRD_HEIGHT
+    );
+    // Flip image so the head is in the right direction
+    ctx.save();
+    ctx.scale(-1, 1);
+
+    ctx.drawImage(
+      img,
+      -BIRD_OFFSET_X,
+      birdY.current,
+      -dimensionsAndOffsets.drawWidth,
+      dimensionsAndOffsets.drawHeight
+    );
+    // Reset flip
+    ctx.restore();
   };
 
   useEffect(() => {
@@ -80,6 +99,10 @@ const useBird = () => {
       window.removeEventListener("click", onClick);
     };
   }, [addVelocity]);
+
+  useEffect(() => {
+    axoImg.current.src = "/src/assets/axolotl.png";
+  }, []);
 
   return { birdY, addVelocity, resetVelocity, computeBirdY, drawBird };
 };

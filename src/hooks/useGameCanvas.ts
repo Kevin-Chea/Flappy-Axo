@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef } from "react";
 import { CANVAS_HEIGHT, CANVAS_WIDTH } from "../Properties";
+import { computeDrawDimensionsAndOffsets } from "../utils/image";
 
 const useGameCanvas = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -22,33 +23,45 @@ const useGameCanvas = () => {
 
   const drawBackground = () => {
     const img = backgroundImg.current;
-    const canvasRatio = CANVAS_WIDTH / CANVAS_HEIGHT;
-    const imgRatio = img.width / img.height;
+    // const canvasRatio = CANVAS_WIDTH / CANVAS_HEIGHT;
+    // const imgRatio = img.width / img.height;
 
-    let drawWidth = CANVAS_WIDTH;
-    let drawHeight = CANVAS_HEIGHT;
+    // let drawWidth = CANVAS_WIDTH;
+    // let drawHeight = CANVAS_HEIGHT;
 
-    let offsetX = 0;
-    let offsetY = 0;
+    // let offsetX = 0;
+    // let offsetY = 0;
 
-    if (imgRatio > canvasRatio) {
-      // Wider image: crop width
-      drawHeight = CANVAS_HEIGHT;
-      drawWidth = imgRatio * drawHeight;
-      offsetX = (CANVAS_WIDTH - drawWidth) / 2;
-    } else {
-      // Heigher image: crop top/bottom
-      drawWidth = CANVAS_WIDTH;
-      drawHeight = drawWidth / imgRatio;
-      offsetY = (CANVAS_HEIGHT - drawHeight) / 2;
-    }
+    // if (imgRatio > canvasRatio) {
+    //   // Wider image: crop width
+    //   drawHeight = CANVAS_HEIGHT;
+    //   drawWidth = imgRatio * drawHeight;
+    //   offsetX = (CANVAS_WIDTH - drawWidth) / 2;
+    // } else {
+    //   // Heigher image: crop top/bottom
+    //   drawWidth = CANVAS_WIDTH;
+    //   drawHeight = drawWidth / imgRatio;
+    //   offsetY = (CANVAS_HEIGHT - drawHeight) / 2;
+    // }
 
+    // canvasContextRef.current?.drawImage(
+    //   img,
+    //   offsetX,
+    //   offsetY,
+    //   drawWidth,
+    //   drawHeight
+    // );
+    const dimensionsAndOffsets = computeDrawDimensionsAndOffsets(
+      img,
+      CANVAS_WIDTH,
+      CANVAS_WIDTH
+    );
     canvasContextRef.current?.drawImage(
       img,
-      offsetX,
-      offsetY,
-      drawWidth,
-      drawHeight
+      dimensionsAndOffsets.offsetX,
+      dimensionsAndOffsets.offsetY,
+      dimensionsAndOffsets.drawWidth,
+      dimensionsAndOffsets.drawHeight
     );
   };
 
