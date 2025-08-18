@@ -83,14 +83,62 @@ const usePipes = () => {
   };
 
   const drawPipes = (ctx: CanvasRenderingContext2D) => {
-    ctx.fillStyle = "green";
     pipes.current.forEach((pipe) => {
+      // Body part
+      const bodyGradient = ctx.createLinearGradient(
+        pipe.positionX,
+        pipe.gapY,
+        pipe.positionX + PIPE_WIDTH,
+        pipe.gapY
+      );
+      bodyGradient.addColorStop(0, "#2ecc71"); // green
+      bodyGradient.addColorStop(1, "#1e8449"); // dark green
+      ctx.fillStyle = bodyGradient;
       ctx.fillRect(pipe.positionX, 0, PIPE_WIDTH, pipe.gapY);
       ctx.fillRect(
         pipe.positionX,
         pipe.gapY + PIPES_GAP,
         PIPE_WIDTH,
         CANVAS_HEIGHT - (pipe.gapY + PIPES_GAP)
+      );
+
+      // Top part
+      const capHeight = 30;
+      const capGradient = ctx.createLinearGradient(
+        pipe.positionX,
+        pipe.gapY,
+        pipe.positionX + PIPE_WIDTH,
+        pipe.gapY
+      );
+      capGradient.addColorStop(0, "#58d68d");
+      capGradient.addColorStop(1, "#1e8449");
+      ctx.fillStyle = capGradient;
+      ctx.fillRect(
+        pipe.positionX - 5,
+        pipe.gapY - capHeight,
+        PIPE_WIDTH + 10,
+        capHeight
+      );
+      ctx.fillRect(
+        pipe.positionX - 5,
+        pipe.gapY + PIPES_GAP,
+        PIPE_WIDTH + 10,
+        capHeight
+      );
+
+      // Draw a line around top of obstacle
+      ctx.strokeStyle = "#145a32";
+      ctx.strokeRect(
+        pipe.positionX - 5,
+        pipe.gapY - capHeight,
+        PIPE_WIDTH + 10,
+        capHeight
+      );
+      ctx.strokeRect(
+        pipe.positionX - 5,
+        pipe.gapY + PIPES_GAP,
+        PIPE_WIDTH + 10,
+        capHeight
       );
     });
   };
