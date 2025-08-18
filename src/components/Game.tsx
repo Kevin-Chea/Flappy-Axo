@@ -65,7 +65,22 @@ const Game = () => {
     };
     animationFrame = requestAnimationFrame(gameLoop);
     return () => cancelAnimationFrame(animationFrame);
-  });
+  }, [
+    addVelocity,
+    birdY,
+    canvasContextRef,
+    clearAll,
+    computeBirdY,
+    delta,
+    drawBackground,
+    drawBird,
+    drawPipes,
+    frameExecution,
+    getFirstPipe,
+    objectCollideWithPipe,
+    stop,
+    updateDelta,
+  ]);
 
   useEffect(() => {
     setScore(0);
