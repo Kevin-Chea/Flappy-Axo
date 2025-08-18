@@ -81,7 +81,7 @@ const useBird = () => {
 
   useEffect(() => {
     const handleInput = () => {
-      addVelocity(CLICK_FORCE);
+      birdVelocity.current = CLICK_FORCE;
     };
 
     const onKeyDown = (e: KeyboardEvent) => {
