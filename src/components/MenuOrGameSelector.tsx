@@ -5,9 +5,7 @@ import Menu from "./Menu";
 const MenuOrGameSelector = () => {
   const { isPlaying } = useGame();
 
-  if (isPlaying) return <Game />;
-
-  return <Menu />;
+  return isPlaying ? <Game /> : <Menu />;
 };
 
 export default MenuOrGameSelector;
