@@ -10,7 +10,7 @@ export const ScoreProvider: React.FC<{ children: React.ReactNode }> = ({
   const resetScore = () => setScore(0);
 
   const incrementScore = (points = 1) => {
-    setScore(score + points);
+    setScore((prev) => prev + points);
   };
 
   const setBestScoreIfNecessary = () => {
