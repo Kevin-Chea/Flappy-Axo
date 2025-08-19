@@ -77,11 +77,6 @@ const usePipes = () => {
     movePipes();
   };
 
-  const getFirstPipe = () => {
-    if (!pipes.current || pipes.current.length == 0) return null;
-    return pipes.current[0];
-  };
-
   const drawPipes = (ctx: CanvasRenderingContext2D) => {
     pipes.current.forEach((pipe) => {
       // Body part
@@ -143,6 +138,25 @@ const usePipes = () => {
     });
   };
 
+  const objectCollidesWithAnyPipe = ({
+    x,
+    y,
+    width,
+    height,
+  }: {
+    x: number;
+    y: number;
+    width: number;
+    height: number;
+  }) => {
+    for (const pipe of pipes.current) {
+      if (objectCollideWithPipe({ x, y, width, height }, pipe)) {
+        return true;
+      }
+    }
+    return false;
+  };
+
   useEffect(() => {
     if (isPlaying) {
       resetPipes();
@@ -153,7 +167,7 @@ const usePipes = () => {
     pipes,
     frameExecution,
     objectCollideWithPipe,
-    getFirstPipe,
+    objectCollidesWithAnyPipe,
     drawPipes,
   };
 };
