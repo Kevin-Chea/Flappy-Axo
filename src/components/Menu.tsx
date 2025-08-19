@@ -22,7 +22,7 @@ const Menu = () => {
       window.removeEventListener("click", onClick);
     };
   }, [start]);
-  return <div className="menu">Click to play !</div>;
+  return <button className="menu">Click to play (or press space)!</button>;
 };
 
 export default Menu;
