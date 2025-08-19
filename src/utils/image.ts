@@ -28,3 +28,26 @@ export const computeDrawDimensionsAndOffsets = (
     drawHeight,
   };
 };
+
+export const drawImage = (
+  ctx: CanvasRenderingContext2D,
+  image: HTMLImageElement,
+  width: number,
+  height: number,
+  x: number = 0,
+  y: number = 0
+) => {
+  const dimensionsAndOffsets = computeDrawDimensionsAndOffsets(
+    image,
+    width,
+    height
+  );
+
+  ctx.drawImage(
+    image,
+    dimensionsAndOffsets.offsetX + x,
+    dimensionsAndOffsets.offsetY + y,
+    dimensionsAndOffsets.drawWidth,
+    dimensionsAndOffsets.drawHeight
+  );
+};

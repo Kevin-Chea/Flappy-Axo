@@ -1,18 +1,8 @@
-import { useCallback, useEffect, useRef } from "react";
-import { CANVAS_HEIGHT, CANVAS_WIDTH } from "../Properties";
-import { computeDrawDimensionsAndOffsets } from "../utils/image";
-import useImage from "./useImage";
+import { useEffect, useRef } from "react";
 
 const useGameCanvas = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const canvasContextRef = useRef<CanvasRenderingContext2D>(null);
-  const backgroundImg = useImage("/src/assets/background.jpg");
-
-  const clearAll = useCallback(() => {
-    const ctx = canvasRef.current?.getContext("2d");
-    if (!ctx) return;
-    ctx.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
-  }, []);
 
   useEffect(() => {
     if (canvasRef.current) {
@@ -20,23 +10,7 @@ const useGameCanvas = () => {
     }
   }, []);
 
-  const drawBackground = () => {
-    const img = backgroundImg.current;
-    const dimensionsAndOffsets = computeDrawDimensionsAndOffsets(
-      img,
-      CANVAS_WIDTH,
-      CANVAS_HEIGHT
-    );
-    canvasContextRef.current?.drawImage(
-      img,
-      dimensionsAndOffsets.offsetX,
-      dimensionsAndOffsets.offsetY,
-      dimensionsAndOffsets.drawWidth,
-      dimensionsAndOffsets.drawHeight
-    );
-  };
-
-  return { canvasRef, canvasContextRef, clearAll, drawBackground };
+  return { canvasRef, canvasContextRef };
 };
 
 export default useGameCanvas;

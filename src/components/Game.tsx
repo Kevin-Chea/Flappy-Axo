@@ -17,10 +17,6 @@ const Game = () => {
     let animationFrame: number;
 
     const gameLoop = () => {
-      // Reset canvas
-      clearAll();
-      drawBackground();
-
       update();
       render(ctx);
       animationFrame = requestAnimationFrame(gameLoop);
