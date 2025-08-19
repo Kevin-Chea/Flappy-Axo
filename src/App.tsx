@@ -1,7 +1,7 @@
-import Header from "./components/Header";
-import ScreenSelector from "./components/ScreenSelector";
-import { GameProvider } from "./provider/GameProvider";
-import { ScoreProvider } from "./provider/ScoreProvider";
+import Header from "./features/ui/Header";
+import ScreenSelector from "./features/ui/ScreenSelector";
+import { GameProvider } from "./features/game/GameProvider";
+import { ScoreProvider } from "./features/score/ScoreProvider";
 import "./App.css";
 
 function App() {

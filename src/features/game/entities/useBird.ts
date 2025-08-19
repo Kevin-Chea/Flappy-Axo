@@ -7,11 +7,11 @@ import {
   CLICK_FORCE,
   GRAVITY,
   MAX_VELOCITY,
-} from "../Properties";
-import { computeClampedValue } from "../utils/clamp";
-import useGame from "./useGame";
-import { computeDrawDimensionsAndOffsets } from "../utils/image";
-import useImage from "./useImage";
+} from "../../../Properties";
+import { computeClampedValue } from "../../../utils/clamp";
+import useGame from "../useGame";
+import { computeDrawDimensionsAndOffsets } from "../../../utils/image";
+import useImage from "../../../utils/useImage";
 
 const useBird = () => {
   const birdY = useRef(0);

@@ -1,8 +1,8 @@
 import { useEffect } from "react";
-import { CANVAS_HEIGHT, CANVAS_WIDTH } from "../Properties";
-import useGameCanvas from "../hooks/useGameCanvas";
-import { useScore } from "../hooks/useScore";
-import useGameEngine from "../hooks/useGameEngine";
+import { CANVAS_HEIGHT, CANVAS_WIDTH } from "../../Properties";
+import useGameCanvas from "./useGameCanvas";
+import { useScore } from "../score/useScore";
+import useGameEngine from "./useGameEngine";
 
 const Game = () => {
   const { canvasRef, canvasContextRef } = useGameCanvas();

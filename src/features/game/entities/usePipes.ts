@@ -6,9 +6,9 @@ import {
   PIPE_SPEED,
   PIPE_WIDTH,
   PIPES_GAP,
-} from "../Properties";
-import { useScore } from "./useScore";
-import useGame from "./useGame";
+} from "../../../Properties";
+import { useScore } from "../../score/useScore";
+import useGame from "../useGame";
 
 interface Pipe {
   positionX: number;

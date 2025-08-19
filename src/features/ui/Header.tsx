@@ -1,4 +1,4 @@
-import { useScore } from "../hooks/useScore";
+import { useScore } from "../score/useScore";
 import "./Header.css";
 
 const Header = () => {

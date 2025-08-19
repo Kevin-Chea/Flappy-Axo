@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import useGame from "../hooks/useGame";
+import useGame from "../game/useGame";
 import "./Menu.css";
 
 const Menu = () => {

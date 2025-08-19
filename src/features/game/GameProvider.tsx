@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
-import { GameContext } from "../context/GameContext";
-import { useScore } from "../hooks/useScore";
+import { GameContext } from "./GameContext";
+import { useScore } from "../score/useScore";
 
 export const GameProvider: React.FC<{ children: React.ReactNode }> = ({
   children,

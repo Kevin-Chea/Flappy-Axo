@@ -5,12 +5,12 @@ import {
   CANVAS_HEIGHT,
   CANVAS_WIDTH,
   GRAVITY,
-} from "../Properties";
-import { drawImage } from "../utils/image";
-import useBird from "./useBird";
+} from "../../Properties";
+import { drawImage } from "../../utils/image";
+import useBird from "./entities/useBird";
 import useGame from "./useGame";
-import useImage from "./useImage";
-import usePipes from "./usePipes";
+import useImage from "../../utils/useImage";
+import usePipes from "./entities/usePipes";
 
 const useGameEngine = () => {
   const { birdY, addVelocity, computeBirdY, drawBird } = useBird();

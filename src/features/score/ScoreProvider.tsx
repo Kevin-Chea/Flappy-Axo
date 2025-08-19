@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
-import { ScoreContext } from "../context/ScoreContext";
+import { ScoreContext } from "./ScoreContext";
 
 export const ScoreProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
