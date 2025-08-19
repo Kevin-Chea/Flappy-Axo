@@ -18,43 +18,19 @@ const useGameCanvas = () => {
       canvasContextRef.current = canvasRef.current?.getContext("2d");
     }
 
-    backgroundImg.current.src = "/src/assets/background.jpg";
+    const img = new Image();
+    img.src = "/src/assets/background.jpg";
+    img.onload = () => {
+      backgroundImg.current = img;
+    };
   }, []);
 
   const drawBackground = () => {
     const img = backgroundImg.current;
-    // const canvasRatio = CANVAS_WIDTH / CANVAS_HEIGHT;
-    // const imgRatio = img.width / img.height;
-
-    // let drawWidth = CANVAS_WIDTH;
-    // let drawHeight = CANVAS_HEIGHT;
-
-    // let offsetX = 0;
-    // let offsetY = 0;
-
-    // if (imgRatio > canvasRatio) {
-    //   // Wider image: crop width
-    //   drawHeight = CANVAS_HEIGHT;
-    //   drawWidth = imgRatio * drawHeight;
-    //   offsetX = (CANVAS_WIDTH - drawWidth) / 2;
-    // } else {
-    //   // Heigher image: crop top/bottom
-    //   drawWidth = CANVAS_WIDTH;
-    //   drawHeight = drawWidth / imgRatio;
-    //   offsetY = (CANVAS_HEIGHT - drawHeight) / 2;
-    // }
-
-    // canvasContextRef.current?.drawImage(
-    //   img,
-    //   offsetX,
-    //   offsetY,
-    //   drawWidth,
-    //   drawHeight
-    // );
     const dimensionsAndOffsets = computeDrawDimensionsAndOffsets(
       img,
       CANVAS_WIDTH,
-      CANVAS_WIDTH
+      CANVAS_HEIGHT
     );
     canvasContextRef.current?.drawImage(
       img,
