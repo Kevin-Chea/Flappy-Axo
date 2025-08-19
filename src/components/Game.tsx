@@ -5,8 +5,7 @@ import { useScore } from "../hooks/useScore";
 import useGameEngine from "../hooks/useGameEngine";
 
 const Game = () => {
-  const { canvasRef, canvasContextRef, clearAll, drawBackground } =
-    useGameCanvas();
+  const { canvasRef, canvasContextRef } = useGameCanvas();
   const { resetScore } = useScore();
   const { update, render } = useGameEngine();
 
@@ -23,7 +22,7 @@ const Game = () => {
     };
     animationFrame = requestAnimationFrame(gameLoop);
     return () => cancelAnimationFrame(animationFrame);
-  }, [canvasContextRef, clearAll, drawBackground, render, update]);
+  }, [canvasContextRef, render, update]);
 
   useEffect(() => {
     resetScore();
