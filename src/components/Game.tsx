@@ -8,7 +8,7 @@ const Game = () => {
   const { canvasRef, canvasContextRef, clearAll, drawBackground } =
     useGameCanvas();
   const { resetScore } = useScore();
-  const { update } = useGameEngine();
+  const { update, render } = useGameEngine();
 
   useEffect(() => {
     const ctx = canvasContextRef.current;
@@ -21,12 +21,13 @@ const Game = () => {
       clearAll();
       drawBackground();
 
-      update(ctx);
+      update();
+      render(ctx);
       animationFrame = requestAnimationFrame(gameLoop);
     };
     animationFrame = requestAnimationFrame(gameLoop);
     return () => cancelAnimationFrame(animationFrame);
-  }, [canvasContextRef, clearAll, drawBackground, update]);
+  }, [canvasContextRef, clearAll, drawBackground, render, update]);
 
   useEffect(() => {
     resetScore();

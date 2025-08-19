@@ -9,7 +9,7 @@ const useGameEngine = () => {
     usePipes();
   const { stop, updateDelta, delta } = useGame();
 
-  const update = (ctx: CanvasRenderingContext2D) => {
+  const update = () => {
     // 1. Time progression
     updateDelta();
 
@@ -36,12 +36,14 @@ const useGameEngine = () => {
     ) {
       stop();
     }
-    // 5. Draw bird & pipes
+  };
+
+  const render = (ctx: CanvasRenderingContext2D) => {
     drawBird(ctx);
     drawPipes(ctx);
   };
 
-  return { update };
+  return { update, render };
 };
 
 export default useGameEngine;
