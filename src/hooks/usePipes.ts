@@ -64,7 +64,7 @@ const usePipes = () => {
     if (pipes.current.length !== nbPipes) incrementScore();
   };
 
-  const frameExecution = () => {
+  const updatePipes = () => {
     // Recreate a pipe if necessary
     if (performance.now() - timeOfLastPipeSpawn.current > DELAY_BETWEEN_PIPES) {
       addPipe();
@@ -165,7 +165,7 @@ const usePipes = () => {
 
   return {
     pipes,
-    frameExecution,
+    updatePipes,
     objectCollideWithPipe,
     objectCollidesWithAnyPipe,
     drawPipes,

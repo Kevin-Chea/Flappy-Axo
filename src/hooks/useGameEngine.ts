@@ -14,7 +14,7 @@ import usePipes from "./usePipes";
 
 const useGameEngine = () => {
   const { birdY, addVelocity, computeBirdY, drawBird } = useBird();
-  const { frameExecution, objectCollidesWithAnyPipe, drawPipes } = usePipes();
+  const { updatePipes, objectCollidesWithAnyPipe, drawPipes } = usePipes();
   const { stop, updateDelta, delta } = useGame();
   const backgroundImg = useImage("/src/assets/background.jpg");
 
@@ -27,7 +27,7 @@ const useGameEngine = () => {
     computeBirdY();
 
     // 3. Pipe logic (creation, deletion...)
-    frameExecution();
+    updatePipes();
 
     // 4. Check collision of character with obstacle
     if (
