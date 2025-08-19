@@ -88,12 +88,7 @@ const Game = () => {
 
   return (
     <>
-      <canvas
-        ref={canvasRef}
-        width={CANVAS_WIDTH}
-        height={CANVAS_HEIGHT}
-        style={{ border: "2px solid #333", display: "block", margin: "0 auto" }}
-      />
+      <canvas ref={canvasRef} width={CANVAS_WIDTH} height={CANVAS_HEIGHT} />
     </>
   );
 };

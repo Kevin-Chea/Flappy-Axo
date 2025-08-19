@@ -4,6 +4,12 @@
   justify-content: center;
   width: 100vw;
 }
+
+canvas {
+  border: 2px solid #333;
+  display: block;
+  margin: 0 auto;
+}
 /* 
 #root {
   max-width: 1280px;
