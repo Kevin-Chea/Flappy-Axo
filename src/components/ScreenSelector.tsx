@@ -2,10 +2,10 @@ import Game from "./Game";
 import useGame from "../hooks/useGame";
 import Menu from "./Menu";
 
-const MenuOrGameSelector = () => {
+const ScreenSelector = () => {
   const { isPlaying } = useGame();
 
   return isPlaying ? <Game /> : <Menu />;
 };
 
-export default MenuOrGameSelector;
+export default ScreenSelector;
