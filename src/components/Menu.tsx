@@ -5,19 +5,15 @@ import "./Menu.css";
 const Menu = () => {
   const { start } = useGame();
 
-  const handleInput = () => {
-    start();
-  };
-
   useEffect(() => {
     const onKeyDown = (e: KeyboardEvent) => {
       if (e.code === "Space") {
         e.preventDefault();
-        handleInput();
+        start();
       }
     };
 
-    const onClick = () => handleInput();
+    const onClick = () => start();
     window.addEventListener("click", onClick);
     window.addEventListener("keydown", onKeyDown);
 
@@ -25,7 +21,7 @@ const Menu = () => {
       window.removeEventListener("keydown", onKeyDown);
       window.removeEventListener("click", onClick);
     };
-  });
+  }, [start]);
   return <div className="menu">Click to play !</div>;
 };
 
