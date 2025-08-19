@@ -9,16 +9,19 @@ export const GameProvider: React.FC<{ children: React.ReactNode }> = ({
 
   const { setBestScoreIfNecessary } = useScore();
 
+  const lastTime = useRef(performance.now());
+  const delta = useRef(0);
+
   const start = () => {
     setIsPlaying(true);
+    lastTime.current = performance.now();
+    delta.current = 0;
   };
+
   const stop = () => {
     setBestScoreIfNecessary();
     setIsPlaying(false);
   };
-
-  const lastTime = useRef(performance.now());
-  const delta = useRef(0);
 
   const updateDelta = () => {
     const newTime = performance.now();
