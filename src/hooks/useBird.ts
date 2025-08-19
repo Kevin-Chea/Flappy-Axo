@@ -11,12 +11,13 @@ import {
 import { computeClampedValue } from "../utils/clamp";
 import useGame from "./useGame";
 import { computeDrawDimensionsAndOffsets } from "../utils/image";
+import useImage from "./useImage";
 
 const useBird = () => {
   const birdY = useRef(0);
   const birdVelocity = useRef(0);
   const { delta } = useGame();
-  const axoImg = useRef<HTMLImageElement>(new Image());
+  const axoImg = useImage("/src/assets/axolotl.png");
 
   const addVelocity = useCallback(
     (velocity: number) => {
@@ -99,10 +100,6 @@ const useBird = () => {
       window.removeEventListener("click", onClick);
     };
   }, [addVelocity]);
-
-  useEffect(() => {
-    axoImg.current.src = "/src/assets/axolotl.png";
-  }, []);
 
   return { birdY, addVelocity, resetVelocity, computeBirdY, drawBird };
 };
