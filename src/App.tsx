@@ -7,8 +7,8 @@ import "./App.css";
 function App() {
   return (
     <ScoreProvider>
+      <Header />
       <GameProvider>
-        <Header />
         <div className="main-content">
           <ScreenSelector />
         </div>
