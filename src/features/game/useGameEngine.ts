@@ -1,4 +1,4 @@
-import { CANVAS_HEIGHT, CANVAS_WIDTH, GRAVITY } from "../../Properties";
+import { CANVAS_HEIGHT, CANVAS_WIDTH } from "../../Properties";
 import useBird from "./entities/useBird";
 import useGame from "./useGame";
 import usePipes from "./entities/usePipes";
@@ -8,7 +8,7 @@ import drawBackground from "./render/renderBackground";
 import drawPipes from "./render/renderPipes";
 
 const useGameEngine = () => {
-  const { addVelocity, computeBirdY, getState: getBirdState } = useBird();
+  const { getState: getBirdState, updateBird } = useBird();
   const { pipes, updatePipes, objectCollidesWithAnyPipe } = usePipes();
   const { stop, updateDelta, delta } = useGame();
   const { getState: getBgState } = useBackground();
@@ -18,8 +18,7 @@ const useGameEngine = () => {
     updateDelta();
 
     // 2. Apply forces on main character
-    addVelocity(GRAVITY * delta.current);
-    computeBirdY();
+    updateBird(delta.current);
 
     // 3. Pipe logic (creation, deletion...)
     updatePipes();
