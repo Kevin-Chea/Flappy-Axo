@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
 import {
+  BIRD_OFFSET_X,
   CANVAS_HEIGHT,
   CANVAS_WIDTH,
   DELAY_BETWEEN_PIPES,
@@ -45,20 +46,21 @@ const usePipes = () => {
     );
   };
 
-  const movePipes = () => {
-    pipes.current.forEach(
-      (pipe) => (pipe.positionX += PIPE_SPEED * delta.current * 100)
-    );
+  const handleMovePipes = () => {
+    pipes.current.forEach((pipe) => {
+      const nextPositionX = pipe.positionX + PIPE_SPEED * delta.current * 100;
+      // If player has reached an obstacle : increment score
+      if (pipe.positionX >= BIRD_OFFSET_X && BIRD_OFFSET_X >= nextPositionX)
+        incrementScore();
+      pipe.positionX = nextPositionX;
+    });
   };
 
   const handlePipeDeletion = () => {
-    const nbPipes = pipes.current.length;
     // Delete pipe if it has left the screen
     pipes.current = pipes.current.filter(
       (pipe) => pipe.positionX + PIPE_WIDTH > 0
     );
-
-    if (pipes.current.length !== nbPipes) incrementScore();
   };
 
   const updatePipes = () => {
@@ -71,7 +73,7 @@ const usePipes = () => {
     // Delete pipe if it has left the screen
     handlePipeDeletion();
 
-    movePipes();
+    handleMovePipes();
   };
 
   const objectCollidesWithAnyPipe = ({
