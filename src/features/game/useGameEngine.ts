@@ -5,10 +5,11 @@ import usePipes from "./entities/usePipes";
 import drawBird from "./render/renderBird";
 import useBackground from "./entities/useBackground";
 import drawBackground from "./render/renderBackground";
+import drawPipes from "./render/renderPipes";
 
 const useGameEngine = () => {
   const { addVelocity, computeBirdY, getState: getBirdState } = useBird();
-  const { updatePipes, objectCollidesWithAnyPipe, drawPipes } = usePipes();
+  const { pipes, updatePipes, objectCollidesWithAnyPipe } = usePipes();
   const { stop, updateDelta, delta } = useGame();
   const { getState: getBgState } = useBackground();
 
@@ -36,7 +37,7 @@ const useGameEngine = () => {
     // Redraw each element
     drawBackground(ctx, getBgState());
     drawBird(ctx, getBirdState());
-    drawPipes(ctx);
+    drawPipes(ctx, pipes.current);
   };
 
   return { update, render };
