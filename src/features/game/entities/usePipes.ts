@@ -23,6 +23,7 @@ const usePipes = () => {
 
   const resetPipes = () => {
     pipes.current = [];
+    timeOfLastPipeSpawn.current = performance.now();
   };
 
   const addPipe = () => {
