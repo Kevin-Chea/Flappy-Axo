@@ -19,6 +19,14 @@ const useBird = () => {
   const { delta } = useGame();
   const axoImg = useImage("/src/assets/axolotl.png");
 
+  const getState = () => ({
+    x: BIRD_OFFSET_X,
+    y: birdY.current,
+    width: BIRD_WIDTH,
+    height: BIRD_HEIGHT,
+    img: axoImg.current,
+  });
+
   const addVelocity = useCallback(
     (velocity: number) => {
       birdVelocity.current += velocity;
@@ -50,7 +58,6 @@ const useBird = () => {
   };
 
   const computeBirdY = () => {
-    console.log(birdVelocity.current * delta.current);
     birdY.current += birdVelocity.current * delta.current;
     // Clamp value
     if (birdY.current < 0) birdY.current = 0;
@@ -101,7 +108,14 @@ const useBird = () => {
     };
   }, [addVelocity]);
 
-  return { birdY, addVelocity, resetVelocity, computeBirdY, drawBird };
+  return {
+    birdY,
+    addVelocity,
+    resetVelocity,
+    computeBirdY,
+    drawBird,
+    getState,
+  };
 };
 
 export default useBird;
