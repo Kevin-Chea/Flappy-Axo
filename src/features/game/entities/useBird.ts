@@ -60,11 +60,12 @@ const useBird = () => {
   };
 
   const computeBirdY = (delta: number) => {
-    birdY.current += birdVelocity.current * delta;
     // Clamp value
-    if (birdY.current < 0) birdY.current = 0;
-    if (birdY.current + BIRD_HEIGHT > CANVAS_HEIGHT)
-      birdY.current = CANVAS_HEIGHT - BIRD_HEIGHT;
+    birdY.current = computeClampedValue(
+      birdY.current + birdVelocity.current * delta,
+      0,
+      CANVAS_HEIGHT - BIRD_HEIGHT
+    );
   };
 
   useEffect(() => {
