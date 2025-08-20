@@ -48,7 +48,6 @@ const useBird = () => {
         -MAX_VELOCITY,
         MAX_VELOCITY
       );
-      console.log(birdVelocity.current);
     },
     [delta]
   );

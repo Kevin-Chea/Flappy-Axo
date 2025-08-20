@@ -1,16 +1,16 @@
 import { CANVAS_HEIGHT, CANVAS_WIDTH, GRAVITY } from "../../Properties";
-import { drawImage } from "../../utils/image";
 import useBird from "./entities/useBird";
 import useGame from "./useGame";
-import useImage from "../../utils/useImage";
 import usePipes from "./entities/usePipes";
 import drawBird from "./render/renderBird";
+import useBackground from "./entities/useBackground";
+import drawBackground from "./render/renderBackground";
 
 const useGameEngine = () => {
   const { addVelocity, computeBirdY, getState: getBirdState } = useBird();
   const { updatePipes, objectCollidesWithAnyPipe, drawPipes } = usePipes();
   const { stop, updateDelta, delta } = useGame();
-  const backgroundImg = useImage("/src/assets/background.jpg");
+  const { getState: getBgState } = useBackground();
 
   const update = () => {
     // 1. Time progression
@@ -30,10 +30,11 @@ const useGameEngine = () => {
   };
 
   const render = (ctx: CanvasRenderingContext2D) => {
-    // Reset canvas and redraw background
+    // Reset canvas
     ctx.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
-    drawImage(ctx, backgroundImg.current, CANVAS_WIDTH, CANVAS_HEIGHT);
 
+    // Redraw each element
+    drawBackground(ctx, getBgState());
     drawBird(ctx, getBirdState());
     drawPipes(ctx);
   };
