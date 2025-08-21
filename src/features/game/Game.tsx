@@ -5,7 +5,10 @@ import { useScore } from "../score/useScore";
 import useGameEngine from "./useGameEngine";
 
 const Game = () => {
-  const { canvasRef, canvasContextRef } = useGameCanvas();
+  const { canvasRef, canvasContextRef } = useGameCanvas(
+    CANVAS_WIDTH,
+    CANVAS_HEIGHT
+  );
   const { resetScore } = useScore();
   const { update, render } = useGameEngine();
 
