@@ -1,6 +1,7 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { GameContext } from "./GameContext";
 import { useScore } from "../score/useScore";
+import useGameLoop from "./useGameLoop";
 
 export const GameProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
@@ -9,24 +10,16 @@ export const GameProvider: React.FC<{ children: React.ReactNode }> = ({
 
   const { updateBestScore } = useScore();
 
-  const lastTime = useRef(performance.now());
-  const delta = useRef(0);
+  const { delta, computeDelta, reset } = useGameLoop();
 
   const startGame = () => {
     setIsPlaying(true);
-    lastTime.current = performance.now();
-    delta.current = 0;
+    reset();
   };
 
   const stopGame = () => {
     updateBestScore();
     setIsPlaying(false);
-  };
-
-  const computeDelta = () => {
-    const newTime = performance.now();
-    delta.current = (newTime - lastTime.current) * 0.001; // convert from ms to s
-    lastTime.current = newTime;
   };
 
   return (
@@ -35,7 +28,6 @@ export const GameProvider: React.FC<{ children: React.ReactNode }> = ({
         isPlaying,
         startGame,
         stopGame,
-        lastTime,
         delta,
         computeDelta,
       }}

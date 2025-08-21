@@ -4,7 +4,6 @@ interface GameContextType {
   isPlaying: boolean;
   startGame: () => void;
   stopGame: () => void;
-  lastTime: React.RefObject<number>;
   delta: React.RefObject<number>;
   computeDelta: () => void;
 }
