@@ -6,14 +6,14 @@ import "./App.css";
 
 function App() {
   return (
-    <ScoreProvider>
-      <Header />
-      <GameProvider>
+    <GameProvider>
+      <ScoreProvider>
+        <Header />
         <div className="main-content">
           <GameScreen />
         </div>
-      </GameProvider>
-    </ScoreProvider>
+      </ScoreProvider>
+    </GameProvider>
   );
 }
 

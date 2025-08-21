@@ -1,7 +1,6 @@
 import { useEffect } from "react";
 import { CANVAS_HEIGHT, CANVAS_WIDTH } from "../../Properties";
 import useGameCanvas from "./useGameCanvas";
-import { useScore } from "../score/useScore";
 import useGameEngine from "./useGameEngine";
 
 const Game = () => {
@@ -9,7 +8,6 @@ const Game = () => {
     CANVAS_WIDTH,
     CANVAS_HEIGHT
   );
-  const { resetScore } = useScore();
   const { update, render } = useGameEngine();
 
   useEffect(() => {
@@ -26,10 +24,6 @@ const Game = () => {
     animationFrame = requestAnimationFrame(gameLoop);
     return () => cancelAnimationFrame(animationFrame);
   }, [canvasContextRef, render, update]);
-
-  useEffect(() => {
-    resetScore();
-  }, [resetScore]);
 
   return (
     <>

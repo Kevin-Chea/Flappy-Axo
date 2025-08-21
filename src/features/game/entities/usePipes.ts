@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 import {
   BIRD_OFFSET_X,
   CANVAS_HEIGHT,
@@ -9,19 +9,12 @@ import {
   PIPES_GAP,
 } from "../../../Properties";
 import { useScore } from "../../score/useScore";
-import useGame from "../useGame";
 import type { Pipe } from "./pipe.type";
 
 const usePipes = () => {
   const pipes = useRef<Pipe[]>([]);
   const { incrementScore } = useScore();
-  const { isPlaying } = useGame();
   const timeOfLastPipeSpawn = useRef(0);
-
-  const resetPipes = () => {
-    pipes.current = [];
-    timeOfLastPipeSpawn.current = performance.now();
-  };
 
   const addPipe = () => {
     const newPipe: Pipe = {
@@ -95,17 +88,17 @@ const usePipes = () => {
     return false;
   };
 
-  useEffect(() => {
-    if (isPlaying) {
-      resetPipes();
-    }
-  }, [isPlaying]);
+  const reset = () => {
+    pipes.current = [];
+    timeOfLastPipeSpawn.current = performance.now();
+  };
 
   return {
     pipes,
     updatePipes,
     isCollidingWithPipe,
     isCollidingWithAnyPipe,
+    reset,
   };
 };
 

@@ -6,12 +6,24 @@ import drawBird from "./render/renderBird";
 import useBackground from "./entities/useBackground";
 import drawBackground from "./render/renderBackground";
 import drawPipes from "./render/renderPipes";
+import { useEffect } from "react";
+import { useScore } from "../score/useScore";
 
 const useGameEngine = () => {
-  const { getState: getBirdState, applyPhysics: applyBirdPhysics } = useBird();
-  const { pipes, updatePipes, isCollidingWithAnyPipe } = usePipes();
-  const { stopGame, computeDelta, delta } = useGame();
+  const {
+    getState: getBirdState,
+    applyPhysics: applyBirdPhysics,
+    reset: resetBird,
+  } = useBird();
+  const {
+    pipes,
+    updatePipes,
+    isCollidingWithAnyPipe,
+    reset: resetPipes,
+  } = usePipes();
+  const { delta, computeDelta, stopGame } = useGame();
   const { getState: getBgState } = useBackground();
+  const { resetScore } = useScore();
 
   const checkCollisions = () => {
     // If there is a collision : end the game
@@ -43,6 +55,13 @@ const useGameEngine = () => {
     drawBird(ctx, getBirdState());
     drawPipes(ctx, pipes.current);
   };
+
+  // When game begins or restarts, reset everything
+  useEffect(() => {
+    resetBird();
+    resetPipes();
+    resetScore();
+  }, [resetBird, resetPipes, resetScore]);
 
   return { update, render };
 };
