@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { ScoreContext } from "./ScoreContext";
 
 export const ScoreProvider: React.FC<{ children: React.ReactNode }> = ({
@@ -7,7 +7,7 @@ export const ScoreProvider: React.FC<{ children: React.ReactNode }> = ({
   const [score, setScore] = useState(0);
   const [bestScore, setBestScore] = useState(0);
 
-  const resetScore = useCallback(() => setScore(0), []);
+  const resetScore = () => setScore(0);
 
   const incrementScore = (points = 1) => {
     setScore((prev) => prev + points);
