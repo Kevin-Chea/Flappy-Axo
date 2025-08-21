@@ -19,9 +19,10 @@ const Menu = () => {
       window.removeEventListener("keydown", startOnEvent);
     };
   }, [startGame]);
+
   return (
     <button className="menu" onClick={startGame}>
-      Click to play (or press space)!
+      Click to play (or press space) !
     </button>
   );
 };
