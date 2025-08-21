@@ -1,8 +1,9 @@
 import { CANVAS_HEIGHT, CANVAS_WIDTH } from "../../../Properties";
 import useImage from "../../../utils/useImage";
+import bgSrc from "../../../assets/background.jpg";
 
 const useBackground = () => {
-  const bgImg = useImage("/src/assets/background.jpg");
+  const bgImg = useImage(bgSrc);
 
   const getState = () => ({
     x: 0,

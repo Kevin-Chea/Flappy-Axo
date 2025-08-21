@@ -9,14 +9,13 @@ import {
   MAX_VELOCITY,
 } from "../../../Properties";
 import { computeClampedValue } from "../../../utils/clamp";
-import useGame from "../useGame";
 import useImage from "../../../utils/useImage";
+import axoSrc from "../../../assets/axolotl.png";
 
 const useBird = () => {
   const birdY = useRef(0);
   const birdVelocity = useRef(0);
-  const { isPlaying } = useGame();
-  const axoImg = useImage("/src/assets/axolotl.png");
+  const axoImg = useImage(axoSrc);
 
   const getState = () => ({
     x: BIRD_OFFSET_X,
@@ -55,10 +54,6 @@ const useBird = () => {
     );
   };
 
-  const resetVelocity = () => {
-    birdVelocity.current = 0;
-  };
-
   const computeBirdY = (delta: number) => {
     // Clamp value
     birdY.current = computeClampedValue(
@@ -89,16 +84,15 @@ const useBird = () => {
     };
   }, []);
 
-  useEffect(() => {
-    if (isPlaying) {
-      resetVelocity();
-    }
-  }, [isPlaying]);
+  const reset = () => {
+    birdVelocity.current = 0;
+  };
 
   return {
     birdY,
     getState,
     applyPhysics,
+    reset,
   };
 };
 
