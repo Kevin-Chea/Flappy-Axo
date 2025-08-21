@@ -13,6 +13,13 @@ const useGameEngine = () => {
   const { stopGame, computeDelta, delta } = useGame();
   const { getState: getBgState } = useBackground();
 
+  const checkCollisions = () => {
+    // If there is a collision : end the game
+    if (objectCollidesWithAnyPipe(getBirdState())) {
+      stopGame();
+    }
+  };
+
   const update = () => {
     // 1. Time progression
     computeDelta();
@@ -24,9 +31,7 @@ const useGameEngine = () => {
     updatePipes();
 
     // 4. Check collision of character with obstacle
-    if (objectCollidesWithAnyPipe(getBirdState())) {
-      stopGame();
-    }
+    checkCollisions();
   };
 
   const render = (ctx: CanvasRenderingContext2D) => {
