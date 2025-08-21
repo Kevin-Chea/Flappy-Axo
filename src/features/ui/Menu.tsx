@@ -6,23 +6,24 @@ const Menu = () => {
   const { startGame } = useGame();
 
   useEffect(() => {
-    const onKeyDown = (e: KeyboardEvent) => {
+    const startOnEvent = (e: KeyboardEvent) => {
       if (e.code === "Space") {
         e.preventDefault();
         startGame();
       }
     };
 
-    const onClick = () => startGame();
-    window.addEventListener("click", onClick);
-    window.addEventListener("keydown", onKeyDown);
+    window.addEventListener("keydown", startOnEvent);
 
     return () => {
-      window.removeEventListener("keydown", onKeyDown);
-      window.removeEventListener("click", onClick);
+      window.removeEventListener("keydown", startOnEvent);
     };
   }, [startGame]);
-  return <button className="menu">Click to play (or press space)!</button>;
+  return (
+    <button className="menu" onClick={startGame}>
+      Click to play (or press space)!
+    </button>
+  );
 };
 
 export default Menu;
