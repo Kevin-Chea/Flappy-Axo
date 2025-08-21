@@ -10,12 +10,12 @@ import drawPipes from "./render/renderPipes";
 const useGameEngine = () => {
   const { getState: getBirdState, updateBird } = useBird();
   const { pipes, updatePipes, objectCollidesWithAnyPipe } = usePipes();
-  const { stop, computeDelta: updateDelta, delta } = useGame();
+  const { stopGame, computeDelta, delta } = useGame();
   const { getState: getBgState } = useBackground();
 
   const update = () => {
     // 1. Time progression
-    updateDelta();
+    computeDelta();
 
     // 2. Apply forces on main character
     updateBird(delta.current);
@@ -25,7 +25,7 @@ const useGameEngine = () => {
 
     // 4. Check collision of character with obstacle
     if (objectCollidesWithAnyPipe(getBirdState())) {
-      stop();
+      stopGame();
     }
   };
 

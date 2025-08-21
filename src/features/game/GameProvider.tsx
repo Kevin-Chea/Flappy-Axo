@@ -12,13 +12,13 @@ export const GameProvider: React.FC<{ children: React.ReactNode }> = ({
   const lastTime = useRef(performance.now());
   const delta = useRef(0);
 
-  const start = () => {
+  const startGame = () => {
     setIsPlaying(true);
     lastTime.current = performance.now();
     delta.current = 0;
   };
 
-  const stop = () => {
+  const stopGame = () => {
     updateBestScore();
     setIsPlaying(false);
   };
@@ -33,8 +33,8 @@ export const GameProvider: React.FC<{ children: React.ReactNode }> = ({
     <GameContext.Provider
       value={{
         isPlaying,
-        start,
-        stop,
+        startGame,
+        stopGame,
         lastTime,
         delta,
         computeDelta,

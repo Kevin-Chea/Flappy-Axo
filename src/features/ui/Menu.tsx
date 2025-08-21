@@ -3,17 +3,17 @@ import useGame from "../game/useGame";
 import "./Menu.css";
 
 const Menu = () => {
-  const { start } = useGame();
+  const { startGame } = useGame();
 
   useEffect(() => {
     const onKeyDown = (e: KeyboardEvent) => {
       if (e.code === "Space") {
         e.preventDefault();
-        start();
+        startGame();
       }
     };
 
-    const onClick = () => start();
+    const onClick = () => startGame();
     window.addEventListener("click", onClick);
     window.addEventListener("keydown", onKeyDown);
 
@@ -21,7 +21,7 @@ const Menu = () => {
       window.removeEventListener("keydown", onKeyDown);
       window.removeEventListener("click", onClick);
     };
-  }, [start]);
+  }, [startGame]);
   return <button className="menu">Click to play (or press space)!</button>;
 };
 

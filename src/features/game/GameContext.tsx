@@ -2,8 +2,8 @@ import { createContext } from "react";
 
 interface GameContextType {
   isPlaying: boolean;
-  start: () => void;
-  stop: () => void;
+  startGame: () => void;
+  stopGame: () => void;
   lastTime: React.RefObject<number>;
   delta: React.RefObject<number>;
   computeDelta: () => void;
