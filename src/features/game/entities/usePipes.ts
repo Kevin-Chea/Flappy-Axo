@@ -48,7 +48,7 @@ const usePipes = () => {
 
   const handleMovePipes = () => {
     pipes.current.forEach((pipe) => {
-      const nextPositionX = pipe.positionX + PIPE_SPEED * delta.current * 100;
+      const nextPositionX = pipe.positionX + PIPE_SPEED * delta.current;
       // If player has reached an obstacle : increment score
       if (pipe.positionX >= BIRD_OFFSET_X && BIRD_OFFSET_X >= nextPositionX)
         incrementScore();

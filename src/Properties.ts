@@ -12,4 +12,4 @@ export const BIRD_HEIGHT = 30;
 export const DELAY_BETWEEN_PIPES = 1500; // Delay in ms
 export const PIPES_GAP = 4 * BIRD_HEIGHT;
 export const PIPE_WIDTH = 80;
-export const PIPE_SPEED = -4;
+export const PIPE_SPEED = -400;
