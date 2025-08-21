@@ -26,7 +26,7 @@ const useBird = () => {
     img: axoImg.current,
   });
 
-  const updateBird = (delta: number) => {
+  const applyPhysics = (delta: number) => {
     // Add gravity
     addVelocity(GRAVITY * delta, delta);
     // update position
@@ -98,7 +98,7 @@ const useBird = () => {
   return {
     birdY,
     getState,
-    updateBird,
+    applyPhysics,
   };
 };
 

@@ -15,7 +15,7 @@ import type { Pipe } from "./pipe.type";
 const usePipes = () => {
   const pipes = useRef<Pipe[]>([]);
   const { incrementScore } = useScore();
-  const { delta, isPlaying } = useGame();
+  const { isPlaying } = useGame();
   const timeOfLastPipeSpawn = useRef(0);
 
   const resetPipes = () => {
@@ -33,7 +33,7 @@ const usePipes = () => {
     pipes.current.push(newPipe);
   };
 
-  const objectCollideWithPipe = (
+  const isCollidingWithPipe = (
     obj: { width: number; height: number; x: number; y: number },
     pipe: Pipe
   ) => {
@@ -46,9 +46,9 @@ const usePipes = () => {
     );
   };
 
-  const handleMovePipes = () => {
+  const handleMovePipes = (delta: number) => {
     pipes.current.forEach((pipe) => {
-      const nextPositionX = pipe.positionX + PIPE_SPEED * delta.current;
+      const nextPositionX = pipe.positionX + PIPE_SPEED * delta;
       // If player has reached an obstacle : increment score
       if (pipe.positionX >= BIRD_OFFSET_X && BIRD_OFFSET_X >= nextPositionX)
         incrementScore();
@@ -63,7 +63,7 @@ const usePipes = () => {
     );
   };
 
-  const updatePipes = () => {
+  const updatePipes = (delta: number) => {
     // Recreate a pipe if necessary
     if (performance.now() - timeOfLastPipeSpawn.current > DELAY_BETWEEN_PIPES) {
       addPipe();
@@ -73,10 +73,10 @@ const usePipes = () => {
     // Delete pipe if it has left the screen
     handlePipeDeletion();
 
-    handleMovePipes();
+    handleMovePipes(delta);
   };
 
-  const objectCollidesWithAnyPipe = ({
+  const isCollidingWithAnyPipe = ({
     x,
     y,
     width,
@@ -88,7 +88,7 @@ const usePipes = () => {
     height: number;
   }) => {
     for (const pipe of pipes.current) {
-      if (objectCollideWithPipe({ x, y, width, height }, pipe)) {
+      if (isCollidingWithPipe({ x, y, width, height }, pipe)) {
         return true;
       }
     }
@@ -104,8 +104,8 @@ const usePipes = () => {
   return {
     pipes,
     updatePipes,
-    objectCollideWithPipe,
-    objectCollidesWithAnyPipe,
+    isCollidingWithPipe,
+    isCollidingWithAnyPipe,
   };
 };
 

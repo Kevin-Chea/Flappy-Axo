@@ -8,14 +8,14 @@ import drawBackground from "./render/renderBackground";
 import drawPipes from "./render/renderPipes";
 
 const useGameEngine = () => {
-  const { getState: getBirdState, updateBird } = useBird();
-  const { pipes, updatePipes, objectCollidesWithAnyPipe } = usePipes();
+  const { getState: getBirdState, applyPhysics: applyBirdPhysics } = useBird();
+  const { pipes, updatePipes, isCollidingWithAnyPipe } = usePipes();
   const { stopGame, computeDelta, delta } = useGame();
   const { getState: getBgState } = useBackground();
 
   const checkCollisions = () => {
     // If there is a collision : end the game
-    if (objectCollidesWithAnyPipe(getBirdState())) {
+    if (isCollidingWithAnyPipe(getBirdState())) {
       stopGame();
     }
   };
@@ -25,10 +25,10 @@ const useGameEngine = () => {
     computeDelta();
 
     // 2. Apply forces on main character
-    updateBird(delta.current);
+    applyBirdPhysics(delta.current);
 
     // 3. Pipe logic (creation, deletion...)
-    updatePipes();
+    updatePipes(delta.current);
 
     // 4. Check collision of character with obstacle
     checkCollisions();
