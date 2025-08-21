@@ -1,5 +1,5 @@
 import Header from "./features/ui/Header";
-import ScreenSelector from "./features/ui/ScreenSelector";
+import GameScreen from "./features/ui/GameScreen";
 import { GameProvider } from "./features/game/GameProvider";
 import { ScoreProvider } from "./features/score/ScoreProvider";
 import "./App.css";
@@ -10,7 +10,7 @@ function App() {
       <Header />
       <GameProvider>
         <div className="main-content">
-          <ScreenSelector />
+          <GameScreen />
         </div>
       </GameProvider>
     </ScoreProvider>
