@@ -23,7 +23,7 @@ export const GameProvider: React.FC<{ children: React.ReactNode }> = ({
     setIsPlaying(false);
   };
 
-  const updateDelta = () => {
+  const computeDelta = () => {
     const newTime = performance.now();
     delta.current = (newTime - lastTime.current) * 0.001; // convert from ms to s
     lastTime.current = newTime;
@@ -37,7 +37,7 @@ export const GameProvider: React.FC<{ children: React.ReactNode }> = ({
         stop,
         lastTime,
         delta,
-        updateDelta,
+        computeDelta,
       }}
     >
       {children}

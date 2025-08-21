@@ -10,7 +10,7 @@ import drawPipes from "./render/renderPipes";
 const useGameEngine = () => {
   const { getState: getBirdState, updateBird } = useBird();
   const { pipes, updatePipes, objectCollidesWithAnyPipe } = usePipes();
-  const { stop, updateDelta, delta } = useGame();
+  const { stop, computeDelta: updateDelta, delta } = useGame();
   const { getState: getBgState } = useBackground();
 
   const update = () => {

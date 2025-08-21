@@ -6,7 +6,7 @@ interface GameContextType {
   stop: () => void;
   lastTime: React.RefObject<number>;
   delta: React.RefObject<number>;
-  updateDelta: () => void;
+  computeDelta: () => void;
 }
 
 export const GameContext = createContext<GameContextType | undefined>(
