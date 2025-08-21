@@ -2,7 +2,6 @@ import { createContext } from "react";
 
 interface GameContextType {
   isPlaying: boolean;
-  setIsPlaying: React.Dispatch<React.SetStateAction<boolean>>;
   start: () => void;
   stop: () => void;
   lastTime: React.RefObject<number>;

@@ -33,7 +33,6 @@ export const GameProvider: React.FC<{ children: React.ReactNode }> = ({
     <GameContext.Provider
       value={{
         isPlaying,
-        setIsPlaying,
         start,
         stop,
         lastTime,
