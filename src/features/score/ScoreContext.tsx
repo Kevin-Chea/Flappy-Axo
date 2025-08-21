@@ -6,7 +6,7 @@ interface ScoreContextType {
   incrementScore: (points?: number) => void;
   resetScore: () => void;
   bestScore: number;
-  setBestScoreIfNecessary: () => void;
+  updateBestScore: () => void;
 }
 
 export const ScoreContext = createContext<ScoreContextType | undefined>(

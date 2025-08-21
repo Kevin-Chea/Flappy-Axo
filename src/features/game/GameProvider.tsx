@@ -7,7 +7,7 @@ export const GameProvider: React.FC<{ children: React.ReactNode }> = ({
 }) => {
   const [isPlaying, setIsPlaying] = useState(false);
 
-  const { setBestScoreIfNecessary } = useScore();
+  const { updateBestScore } = useScore();
 
   const lastTime = useRef(performance.now());
   const delta = useRef(0);
@@ -19,7 +19,7 @@ export const GameProvider: React.FC<{ children: React.ReactNode }> = ({
   };
 
   const stop = () => {
-    setBestScoreIfNecessary();
+    updateBestScore();
     setIsPlaying(false);
   };
 

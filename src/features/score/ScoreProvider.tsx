@@ -13,7 +13,7 @@ export const ScoreProvider: React.FC<{ children: React.ReactNode }> = ({
     setScore((prev) => prev + points);
   };
 
-  const setBestScoreIfNecessary = () => {
+  const updateBestScore = () => {
     if (score > bestScore) {
       localStorage.setItem("bestScore", String(score));
       setBestScore(score);
@@ -31,7 +31,7 @@ export const ScoreProvider: React.FC<{ children: React.ReactNode }> = ({
         score,
         setScore,
         bestScore,
-        setBestScoreIfNecessary,
+        updateBestScore: updateBestScore,
         incrementScore,
         resetScore,
       }}
