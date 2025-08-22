@@ -1,4 +1,4 @@
-export const computeDrawDimensionsAndOffsets = (
+export const getImageFit = (
   img: HTMLImageElement,
   width: number,
   height: number
@@ -8,9 +8,6 @@ export const computeDrawDimensionsAndOffsets = (
 
   let drawWidth = 0;
   let drawHeight = 0;
-
-  //   let offsetX = 0;
-  //   let offsetY = 0;
 
   if (imgRatio > ratio) {
     drawHeight = height;
@@ -22,8 +19,6 @@ export const computeDrawDimensionsAndOffsets = (
 
   return {
     img,
-    offsetX: 0,
-    offsetY: 0,
     drawWidth,
     drawHeight,
   };
@@ -37,16 +32,12 @@ export const drawImage = (
   x: number = 0,
   y: number = 0
 ) => {
-  const dimensionsAndOffsets = computeDrawDimensionsAndOffsets(
-    image,
-    width,
-    height
-  );
+  const dimensionsAndOffsets = getImageFit(image, width, height);
 
   ctx.drawImage(
     image,
-    dimensionsAndOffsets.offsetX + x,
-    dimensionsAndOffsets.offsetY + y,
+    x,
+    y,
     dimensionsAndOffsets.drawWidth,
     dimensionsAndOffsets.drawHeight
   );
