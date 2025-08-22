@@ -1,9 +1,3 @@
-export const computeClampedValue = (
-  clampValue: number,
-  min: number,
-  max: number
-) => {
-  if (clampValue > max) return max;
-  if (clampValue < min) return min;
-  return clampValue;
+export const clamp = (clampValue: number, min: number, max: number) => {
+  return Math.min(Math.max(min, clampValue), max);
 };

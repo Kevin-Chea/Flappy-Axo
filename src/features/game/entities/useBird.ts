@@ -8,7 +8,7 @@ import {
   GRAVITY,
   MAX_VELOCITY,
 } from "../../../Properties";
-import { computeClampedValue } from "../../../utils/clamp";
+import { clamp } from "../../../utils/clamp";
 import useImage from "../../../utils/useImage";
 import axoSrc from "../../../assets/axolotl.png";
 
@@ -47,7 +47,7 @@ const useBird = () => {
       }
     }
     // Clamp value
-    birdVelocity.current = computeClampedValue(
+    birdVelocity.current = clamp(
       birdVelocity.current,
       -MAX_VELOCITY,
       MAX_VELOCITY
@@ -56,7 +56,7 @@ const useBird = () => {
 
   const computeBirdY = (delta: number) => {
     // Clamp value
-    birdY.current = computeClampedValue(
+    birdY.current = clamp(
       birdY.current + birdVelocity.current * delta,
       0,
       CANVAS_HEIGHT - BIRD_HEIGHT
