@@ -1,6 +1,6 @@
 import { useRef } from "react";
 import {
-  BIRD_OFFSET_X,
+  AXO_OFFSET_X,
   CANVAS_HEIGHT,
   CANVAS_WIDTH,
   DELAY_BETWEEN_PIPES,
@@ -43,7 +43,7 @@ const usePipes = () => {
     pipes.current.forEach((pipe) => {
       const nextPositionX = pipe.positionX + PIPE_SPEED * delta;
       // If player has reached an obstacle : increment score
-      if (pipe.positionX >= BIRD_OFFSET_X && BIRD_OFFSET_X >= nextPositionX)
+      if (pipe.positionX >= AXO_OFFSET_X && AXO_OFFSET_X >= nextPositionX)
         incrementScore();
       pipe.positionX = nextPositionX;
     });

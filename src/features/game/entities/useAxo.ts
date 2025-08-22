@@ -1,8 +1,8 @@
 import { useEffect, useRef } from "react";
 import {
-  BIRD_HEIGHT,
-  BIRD_OFFSET_X,
-  BIRD_WIDTH,
+  AXO_HEIGHT,
+  AXO_OFFSET_X,
+  AXO_WIDTH,
   CANVAS_HEIGHT,
   CLICK_FORCE,
   GRAVITY,
@@ -12,16 +12,16 @@ import { clamp } from "../../../utils/clamp";
 import useImage from "../../../utils/useImage";
 import axoSrc from "../../../assets/axolotl.png";
 
-const useBird = () => {
-  const birdY = useRef(0);
-  const birdVelocity = useRef(0);
+const useAxo = () => {
+  const axoY = useRef(0);
+  const axoVelocity = useRef(0);
   const axoImg = useImage(axoSrc);
 
   const getState = () => ({
-    x: BIRD_OFFSET_X,
-    y: birdY.current,
-    width: BIRD_WIDTH,
-    height: BIRD_HEIGHT,
+    x: AXO_OFFSET_X,
+    y: axoY.current,
+    width: AXO_WIDTH,
+    height: AXO_HEIGHT,
     img: axoImg.current,
   });
 
@@ -29,43 +29,43 @@ const useBird = () => {
     // Add gravity
     addVelocity(GRAVITY * delta, delta);
     // update position
-    computeBirdY(delta);
+    computeAxoY(delta);
   };
 
   const addVelocity = (velocity: number, delta: number) => {
-    birdVelocity.current += velocity;
+    axoVelocity.current += velocity;
 
     // If we are hitting a border and velocity would make us leave, decrease it
-    if (velocity > 0 && birdY.current + BIRD_HEIGHT == CANVAS_HEIGHT) {
-      if (birdVelocity.current > 0) {
-        birdVelocity.current -= 2 * GRAVITY * delta;
+    if (velocity > 0 && axoY.current + AXO_HEIGHT == CANVAS_HEIGHT) {
+      if (axoVelocity.current > 0) {
+        axoVelocity.current -= 2 * GRAVITY * delta;
       }
     }
-    if (velocity < 0 && birdY.current == 0) {
-      if (birdVelocity.current < 0) {
-        birdVelocity.current += 2 * GRAVITY * delta;
+    if (velocity < 0 && axoY.current == 0) {
+      if (axoVelocity.current < 0) {
+        axoVelocity.current += 2 * GRAVITY * delta;
       }
     }
     // Clamp value
-    birdVelocity.current = clamp(
-      birdVelocity.current,
+    axoVelocity.current = clamp(
+      axoVelocity.current,
       -MAX_VELOCITY,
       MAX_VELOCITY
     );
   };
 
-  const computeBirdY = (delta: number) => {
+  const computeAxoY = (delta: number) => {
     // Clamp value
-    birdY.current = clamp(
-      birdY.current + birdVelocity.current * delta,
+    axoY.current = clamp(
+      axoY.current + axoVelocity.current * delta,
       0,
-      CANVAS_HEIGHT - BIRD_HEIGHT
+      CANVAS_HEIGHT - AXO_HEIGHT
     );
   };
 
   useEffect(() => {
     const handleInput = () => {
-      birdVelocity.current = CLICK_FORCE;
+      axoVelocity.current = CLICK_FORCE;
     };
 
     const onKeyDown = (e: KeyboardEvent) => {
@@ -85,15 +85,15 @@ const useBird = () => {
   }, []);
 
   const reset = () => {
-    birdVelocity.current = 0;
+    axoVelocity.current = 0;
   };
 
   return {
-    birdY,
+    axoY,
     getState,
     applyPhysics,
     reset,
   };
 };
 
-export default useBird;
+export default useAxo;

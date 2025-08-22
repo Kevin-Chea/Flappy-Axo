@@ -2,7 +2,7 @@ import { getImageFit } from "../../../utils/image";
 import type { EntityState } from "../entities/entityState.type";
 import type { DrawMethod } from "./draw.type";
 
-const drawBird: DrawMethod = (
+const drawAxo: DrawMethod = (
   ctx: CanvasRenderingContext2D,
   state: EntityState
 ) => {
@@ -23,4 +23,4 @@ const drawBird: DrawMethod = (
   ctx.restore();
 };
 
-export default drawBird;
+export default drawAxo;

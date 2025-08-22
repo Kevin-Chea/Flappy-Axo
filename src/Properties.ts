@@ -5,11 +5,11 @@ export const GRAVITY = 800;
 export const CLICK_FORCE = -300;
 export const MAX_VELOCITY = 800;
 
-export const BIRD_OFFSET_X = 100;
-export const BIRD_WIDTH = 60;
-export const BIRD_HEIGHT = 30;
+export const AXO_OFFSET_X = 100;
+export const AXO_WIDTH = 60;
+export const AXO_HEIGHT = 30;
 
 export const DELAY_BETWEEN_PIPES = 1500; // Delay in ms
-export const PIPES_GAP = 4 * BIRD_HEIGHT;
+export const PIPES_GAP = 4 * AXO_HEIGHT;
 export const PIPE_WIDTH = 80;
 export const PIPE_SPEED = -400; // px / s

@@ -1,8 +1,8 @@
 import { CANVAS_HEIGHT, CANVAS_WIDTH } from "../../Properties";
-import useBird from "./entities/useBird";
+import useAxo from "./entities/useAxo";
 import useGame from "./useGame";
 import usePipes from "./entities/usePipes";
-import drawBird from "./render/renderBird";
+import drawAxo from "./render/renderAxo";
 import useBackground from "./entities/useBackground";
 import drawBackground from "./render/renderBackground";
 import drawPipes from "./render/renderPipes";
@@ -11,10 +11,10 @@ import { useScore } from "../score/useScore";
 
 const useGameEngine = () => {
   const {
-    getState: getBirdState,
-    applyPhysics: applyBirdPhysics,
-    reset: resetBird,
-  } = useBird();
+    getState: getAxoState,
+    applyPhysics: applyAxoPhysics,
+    reset: resetAxo,
+  } = useAxo();
   const {
     pipes,
     updatePipes,
@@ -27,7 +27,7 @@ const useGameEngine = () => {
 
   const checkCollisions = () => {
     // If there is a collision : end the game
-    if (isCollidingWithAnyPipe(getBirdState())) {
+    if (isCollidingWithAnyPipe(getAxoState())) {
       stopGame();
     }
   };
@@ -37,7 +37,7 @@ const useGameEngine = () => {
     computeDelta();
 
     // 2. Apply forces on main character
-    applyBirdPhysics(delta.current);
+    applyAxoPhysics(delta.current);
 
     // 3. Pipe logic (creation, deletion...)
     updatePipes(delta.current);
@@ -52,16 +52,16 @@ const useGameEngine = () => {
 
     // Redraw each element
     drawBackground(ctx, getBgState());
-    drawBird(ctx, getBirdState());
+    drawAxo(ctx, getAxoState());
     drawPipes(ctx, pipes.current);
   };
 
   // When game begins or restarts, reset everything
   useEffect(() => {
-    resetBird();
+    resetAxo();
     resetPipes();
     resetScore();
-  }, [resetBird, resetPipes, resetScore]);
+  }, [resetAxo, resetPipes, resetScore]);
 
   return { update, render };
 };
