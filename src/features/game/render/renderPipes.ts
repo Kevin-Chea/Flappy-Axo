@@ -10,16 +10,20 @@ const COLORS = {
 const CAP_HEIGHT = 30;
 const CAP_OFFSET = 5;
 
+let cachedBodyGradient: CanvasGradient | null = null;
+
+const initGradients = (ctx: CanvasRenderingContext2D) => {
+  if (!cachedBodyGradient) {
+    // Pipe becomes lighter when it reaches the left
+    cachedBodyGradient = ctx.createLinearGradient(0, 0, PIPE_WIDTH, 0);
+    COLORS.body.forEach((color, i) => {
+      cachedBodyGradient?.addColorStop(i, color);
+    });
+  }
+};
+
 const drawPipeBody = (ctx: CanvasRenderingContext2D, pipe: Pipe) => {
-  const bodyGradient = ctx.createLinearGradient(
-    pipe.positionX,
-    pipe.gapY,
-    pipe.positionX + PIPE_WIDTH,
-    pipe.gapY
-  );
-  bodyGradient.addColorStop(0, COLORS.body[0]); // green
-  bodyGradient.addColorStop(1, COLORS.body[1]); // dark green
-  ctx.fillStyle = bodyGradient;
+  ctx.fillStyle = cachedBodyGradient!;
   ctx.fillRect(pipe.positionX, 0, PIPE_WIDTH, pipe.gapY);
   ctx.fillRect(
     pipe.positionX,
@@ -69,6 +73,7 @@ const drawPipeCaps = (ctx: CanvasRenderingContext2D, pipe: Pipe) => {
 };
 
 const drawPipes = (ctx: CanvasRenderingContext2D, pipes: Pipe[]) => {
+  initGradients(ctx);
   pipes.forEach((pipe) => {
     drawPipeBody(ctx, pipe);
     drawPipeCaps(ctx, pipe);
