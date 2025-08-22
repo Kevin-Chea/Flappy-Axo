@@ -7,64 +7,71 @@ const COLORS = {
   cap: ["#58d68d", "#1e8449"],
 };
 
+const CAP_HEIGHT = 30;
+const CAP_OFFSET = 5;
+
+const drawPipeBody = (ctx: CanvasRenderingContext2D, pipe: Pipe) => {
+  const bodyGradient = ctx.createLinearGradient(
+    pipe.positionX,
+    pipe.gapY,
+    pipe.positionX + PIPE_WIDTH,
+    pipe.gapY
+  );
+  bodyGradient.addColorStop(0, COLORS.body[0]); // green
+  bodyGradient.addColorStop(1, COLORS.body[1]); // dark green
+  ctx.fillStyle = bodyGradient;
+  ctx.fillRect(pipe.positionX, 0, PIPE_WIDTH, pipe.gapY);
+  ctx.fillRect(
+    pipe.positionX,
+    pipe.gapY + PIPES_GAP,
+    PIPE_WIDTH,
+    CANVAS_HEIGHT - (pipe.gapY + PIPES_GAP)
+  );
+};
+
+const drawPipeCaps = (ctx: CanvasRenderingContext2D, pipe: Pipe) => {
+  const capGradient = ctx.createLinearGradient(
+    pipe.positionX,
+    pipe.gapY,
+    pipe.positionX + PIPE_WIDTH,
+    pipe.gapY
+  );
+  capGradient.addColorStop(0, COLORS.cap[0]);
+  capGradient.addColorStop(1, COLORS.cap[1]);
+  ctx.fillStyle = capGradient;
+  ctx.fillRect(
+    pipe.positionX - CAP_OFFSET,
+    pipe.gapY - CAP_HEIGHT,
+    PIPE_WIDTH + 2 * CAP_OFFSET,
+    CAP_HEIGHT
+  );
+  ctx.fillRect(
+    pipe.positionX - CAP_OFFSET,
+    pipe.gapY + PIPES_GAP,
+    PIPE_WIDTH + 2 * CAP_OFFSET,
+    CAP_HEIGHT
+  );
+
+  // Draw a line around top of obstacle
+  ctx.strokeStyle = COLORS.border;
+  ctx.strokeRect(
+    pipe.positionX - CAP_OFFSET,
+    pipe.gapY - CAP_HEIGHT,
+    PIPE_WIDTH + 2 * CAP_OFFSET,
+    CAP_HEIGHT
+  );
+  ctx.strokeRect(
+    pipe.positionX - CAP_OFFSET,
+    pipe.gapY + PIPES_GAP,
+    PIPE_WIDTH + 2 * CAP_OFFSET,
+    CAP_HEIGHT
+  );
+};
+
 const drawPipes = (ctx: CanvasRenderingContext2D, pipes: Pipe[]) => {
   pipes.forEach((pipe) => {
-    // Body part
-    const bodyGradient = ctx.createLinearGradient(
-      pipe.positionX,
-      pipe.gapY,
-      pipe.positionX + PIPE_WIDTH,
-      pipe.gapY
-    );
-    bodyGradient.addColorStop(0, COLORS.body[0]); // green
-    bodyGradient.addColorStop(1, COLORS.body[1]); // dark green
-    ctx.fillStyle = bodyGradient;
-    ctx.fillRect(pipe.positionX, 0, PIPE_WIDTH, pipe.gapY);
-    ctx.fillRect(
-      pipe.positionX,
-      pipe.gapY + PIPES_GAP,
-      PIPE_WIDTH,
-      CANVAS_HEIGHT - (pipe.gapY + PIPES_GAP)
-    );
-
-    // Top part
-    const capHeight = 30;
-    const capGradient = ctx.createLinearGradient(
-      pipe.positionX,
-      pipe.gapY,
-      pipe.positionX + PIPE_WIDTH,
-      pipe.gapY
-    );
-    capGradient.addColorStop(0, COLORS.cap[0]);
-    capGradient.addColorStop(1, COLORS.cap[1]);
-    ctx.fillStyle = capGradient;
-    ctx.fillRect(
-      pipe.positionX - 5,
-      pipe.gapY - capHeight,
-      PIPE_WIDTH + 10,
-      capHeight
-    );
-    ctx.fillRect(
-      pipe.positionX - 5,
-      pipe.gapY + PIPES_GAP,
-      PIPE_WIDTH + 10,
-      capHeight
-    );
-
-    // Draw a line around top of obstacle
-    ctx.strokeStyle = COLORS.border;
-    ctx.strokeRect(
-      pipe.positionX - 5,
-      pipe.gapY - capHeight,
-      PIPE_WIDTH + 10,
-      capHeight
-    );
-    ctx.strokeRect(
-      pipe.positionX - 5,
-      pipe.gapY + PIPES_GAP,
-      PIPE_WIDTH + 10,
-      capHeight
-    );
+    drawPipeBody(ctx, pipe);
+    drawPipeCaps(ctx, pipe);
   });
 };
 
