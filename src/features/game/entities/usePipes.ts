@@ -39,6 +39,20 @@ const usePipes = () => {
     );
   };
 
+  const isCollidingWithAnyPipe = (obj: {
+    x: number;
+    y: number;
+    width: number;
+    height: number;
+  }) => {
+    for (const pipe of pipes.current) {
+      if (isCollidingWithPipe(obj, pipe)) {
+        return true;
+      }
+    }
+    return false;
+  };
+
   const handleMovePipes = (delta: number) => {
     pipes.current.forEach((pipe) => {
       const nextPositionX = pipe.positionX + PIPE_SPEED * delta;
@@ -67,25 +81,6 @@ const usePipes = () => {
     handlePipeDeletion();
 
     handleMovePipes(delta);
-  };
-
-  const isCollidingWithAnyPipe = ({
-    x,
-    y,
-    width,
-    height,
-  }: {
-    x: number;
-    y: number;
-    width: number;
-    height: number;
-  }) => {
-    for (const pipe of pipes.current) {
-      if (isCollidingWithPipe({ x, y, width, height }, pipe)) {
-        return true;
-      }
-    }
-    return false;
   };
 
   const reset = () => {
